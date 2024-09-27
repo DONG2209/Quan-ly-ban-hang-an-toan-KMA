@@ -1,0 +1,102 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.home_logout {
+    display: flex;
+    justify-content: flex-end; 
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.home_logout a {
+    text-decoration: none;
+    color: #007bff;
+    /* margin-left: 20px;  */
+}
+
+.home_logout a:hover {
+    text-decoration: underline;
+}
+
+.left, .right {
+    width: 100%;
+    margin-bottom: 20px; 
+}
+
+h2 {
+    color: #343a40;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #80bdff;
+    outline: none; /* Ẩn viền khi focus */
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+p {
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+    color: #dc3545; 
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}

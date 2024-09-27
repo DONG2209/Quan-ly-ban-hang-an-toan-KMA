@@ -1,0 +1,76 @@
+body {
+    background-color: #f0f2f5; 
+    font-family: 'Arial', sans-serif;
+}
+
+.home {
+    left: 30px;
+    font-size: 26px;
+    position: absolute; 
+}
+
+.home a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.home a:hover {
+    text-decoration: underline;
+}
+
+.nav-pills {
+    position: fixed;
+    width: 220px; 
+    top: 150px;
+    left: 20px;
+    background-color: #343a40; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+    background-color: #495057; 
+    color: white; 
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #6c757d; 
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #343a40; 
+}
+
+.statistic-card {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.statistic-title {
+    margin-top: 30px;
+    font-size: 24px;
+    color: #343a40; 
+}
+
+.table-bordered {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.table-dark th {
+    background-color: #495057; 
+}
+
+.container {
+    margin-left: 250px; 
+    overflow-x: auto;
+}
