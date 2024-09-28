@@ -118,15 +118,15 @@ if (isset($_GET['id'])) {
             </div>
             <div class="mb-3 form-group">
                 <label for="quantity" class="form-label">Số lượng</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo $order['quantity']; ?>" required>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo $order['quantity']; ?>" required oninput="updateTotal()">
             </div>
             <div class="mb-3 form-group">
                 <label for="price" class="form-label">Giá</label>
-                <input type="number" class="form-control" id="price" name="price" value="<?php echo $order['price']; ?>" required>
+                <input type="number" class="form-control" id="price" name="price" value="<?php echo $order['price']; ?>" readonly>
             </div>
             <div class="mb-3 form-group">
                 <label for="total" class="form-label">Tổng tiền</label>
-                <input type="number" class="form-control" id="total" name="total" value="<?php echo $order['total_price']; ?>" required>
+                <input type="number" class="form-control" id="total" name="total" value="<?php echo $order['total_price'] ; ?>" readonly>
             </div>
             <div class="mb-3 form-group">
                 <label for="created" class="form-label">Ngày đặt</label>
@@ -156,6 +156,12 @@ if (isset($_GET['id'])) {
             var month = ("0" + (now.getMonth() + 1)).slice(-2);
             var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + now.toTimeString().slice(0,5);
             document.getElementById('received').value = today;
+        }
+        function updateTotal() {
+        var quantity = document.getElementById('quantity').value;
+        var price = document.getElementById('price').value;
+        var total = quantity * price;
+        document.getElementById('total').value = total;
         }
     </script>
 

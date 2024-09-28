@@ -9,42 +9,46 @@ if (isset($_POST['register'])) {
     $email = $_POST['email'];
     $address = $_POST['address'];
 
-    $sql_check = "SELECT * FROM users WHERE phone = ? OR email = ?";
-    $stmt = $conn->prepare($sql_check);
-    $stmt->bind_param('ss', $phone, $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "<div class='error'>Phone hoặc Email đã đăng ký</div>";
+    if (!preg_match('/^0\d{9,10}$/', $phone)) {
+        echo "<div class='error'>Số điện thoại không hợp lệ. Vui lòng nhập lại.</div>";
     } else {
-        $salt = bin2hex(random_bytes(16));
-        $hashed_password = hash('sha256', $salt . $password);
+        $sql_check = "SELECT * FROM users WHERE phone = ? OR email = ?";
+        $stmt = $conn->prepare($sql_check);
+        $stmt->bind_param('ss', $phone, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        $sql = "INSERT INTO users (username,password,phone,email,address) VALUES (?, ?, ?, ?,?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssss', $username, $hashed_password, $phone, $email,$address);
-
-        if ($stmt->execute()) {
-            $user_id = $conn->insert_id;
-
-            $sql2 = "INSERT INTO salt_user (id,salt) VALUES ('$user_id', '$salt')";
-            $stmt = $conn->query($sql2);
-
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['role'] = $user['role']; 
-
-            if (isset($_SESSION['redirect_url'])) {
-                $redirect_url = $_SESSION['redirect_url'];
-                unset($_SESSION['redirect_url']); 
-            } else {
-                $redirect_url = '../index.php';
-            }
-
-            header("Location: $redirect_url");
-            exit();
+        if ($result->num_rows > 0) {
+            echo "<div class='error'>Phone hoặc Email đã đăng ký</div>";
         } else {
-            echo "<div class='error'>Đã xảy ra lỗi. Vui lòng thử lại.</div>";
+            $salt = bin2hex(random_bytes(16));
+            $hashed_password = hash('sha256', $salt . $password);
+
+            $sql = "INSERT INTO users (username, password, phone, email, address) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sssss', $username, $hashed_password, $phone, $email, $address);
+
+            if ($stmt->execute()) {
+                $user_id = $conn->insert_id;
+
+                $sql2 = "INSERT INTO salt_user (id, salt) VALUES ('$user_id', '$salt')";
+                $stmt = $conn->query($sql2);
+
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['role'] = $user['role'];
+
+                if (isset($_SESSION['redirect_url'])) {
+                    $redirect_url = $_SESSION['redirect_url'];
+                    unset($_SESSION['redirect_url']);
+                } else {
+                    $redirect_url = '../index.php';
+                }
+
+                header("Location: $redirect_url");
+                exit();
+            } else {
+                echo "<div class='error'>Đã xảy ra lỗi. Vui lòng thử lại.</div>";
+            }
         }
     }
 }
@@ -71,15 +75,15 @@ if (isset($_POST['register'])) {
         </div>
         <div class="form-group">
             <label for="phone">Phone:</label>
-            <input type="text" name="phone"placeholder="số điện thoại" required>
+            <input type="text" name="phone" placeholder="Số điện thoại" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" name="email" placeholder="email" required>
+            <input type="email" name="email" placeholder="Email" required>
         </div>
         <div class="form-group">
             <label for="address">Address:</label>
-            <input type = "text" name = "address" placeholder="Địa chỉ" required>
+            <input type="text" name="address" placeholder="Địa chỉ" required>
         </div>
         <button type="submit" name="register">Tạo tài khoản</button>
     </form>
